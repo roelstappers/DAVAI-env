@@ -17,7 +17,7 @@ Installation
 
 * on [`Atos/bologna`@ECMWF](doc/atos_bologna.md)
 
-* To setup your own install:
+* or to setup your own install:
   * Clone this repository, e.g. in `~/repositories/`:\
     `git clone https://github.com/ACCORD-NWP/DAVAI-env.git`
   * Set paths:
