@@ -27,6 +27,7 @@ Pre-requirements (if not already set up)
    do
    mkdir -p $d
    chgrp -R accord $d
+   chmod g+s $d
    done
    ```
 
