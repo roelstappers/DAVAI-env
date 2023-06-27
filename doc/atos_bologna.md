@@ -23,7 +23,7 @@ Pre-requirements (if not already set up)
 
 2. Ensure permissions to `accord` group (e.g. with `chgrp`) for support
    ```
-   for d in $HOME/davai $HOME/pack $SCRATCH/mtool
+   for d in $HOME/davai $HOME/pack $SCRATCH/mtool/depot
    do
    mkdir -p $d
    chgrp -R accord $d
