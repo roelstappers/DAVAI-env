@@ -15,10 +15,12 @@ I advise to put the first line in your `.bash_profile`, and execute the second o
 Pre-requirements (if not already set up)
 ----------------------------------------
 
-1. Load modules (conveniently in your `.bash_profile`):
+1. Load the required environment for GMKPACK compilation and DAVAI execution. It is **REQUIRED** that add the following to your `.bash_profile`):
    ```
-   module load python3
-   module load ecmwf-toolbox/2021.08.3.0
+    module purge
+    module use /home/rm9/public/modulefiles
+    module load intel/2021.4.0 prgenv/intel python3/3.10.10-01 ecmwf-toolbox/2021.08.3.0 davai/master
+    . use_gmkpack.sh
    ```
 
 2. Ensure permissions to `accord` group (e.g. with `chgrp`) for support
@@ -28,23 +30,4 @@ Pre-requirements (if not already set up)
    mkdir -p $d
    chgrp -R accord $d
    done
-   ```
-
-3. GMKPACK profile variables
-   ```
-   module load intel/2021.4.0
-   
-   # Gmkpack is installed at Ryad El Khatib's
-   HOMEREK=~rme
-   export GMKROOT=$HOMEREK/public/bin/gmkpack
-   # use efficiently filesystems
-   export ROOTPACK=$PERM/rootpack
-   export HOMEPACK=$PERM/pack
-   export GMKTMP=$TMPDIR/gmktmp
-   # default compilation options
-   export GMKFILE=OMPIIFC2104.AA
-   export GMK_OPT=x
-   # update paths
-   export PATH=$GMKROOT/util:$PATH
-   export MANPATH=$MANPATH:$GMKROOT/man
    ```
