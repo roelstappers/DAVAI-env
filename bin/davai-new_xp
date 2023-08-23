@@ -92,12 +92,12 @@ if __name__ == '__main__':
 
     if 'IAL_git_ref' in args:
         sources_to_test = dict(IAL_git_ref=args.IAL_git_ref,
-                               IAL_repository=args.IAL_repository)
+                               IAL_repository=os.path.abspath(args.IAL_repository))
     elif 'IAL_bundle' in args:
         sources_to_test = dict(IAL_bundle=args.IAL_bundle,
-                               IAL_bundle_repository=args.IAL_bundle_repository)
+                               IAL_bundle_repository=os.path.abspath(args.IAL_bundle_repository))
     elif 'IAL_bundle_file' in args:
-        sources_to_test = dict(IAL_bundle_file=args.IAL_bundle_file)
+        sources_to_test = dict(IAL_bundle_file=os.path.abspath(args.IAL_bundle_file))
     sources_to_test['comment'] = args.comment
 
     main(sources_to_test,

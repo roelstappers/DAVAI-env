@@ -84,6 +84,13 @@ class Shelf(object):
             req.writelines([line + '\n' for line in lftp_script])
         subprocess.check_call(['bash', temp_request])
 
+    def arch_prestage(self, archive, **_):
+        """ """
+        from bronx.system.mf import prestage
+        prestage([os.path.join('/home', self.vtx_vapp_vconf, self.radical)],
+                 mail='alexandre.mary@meteo.fr',
+                 archive_machine=archive)
+
     def mkt2arch(self, archive, **_):
         """For a shelf = radical@user, mirrors *shelf* from marketplacecache to *radical* in user@archive"""
         self._mkt_arch(archive, to='arch')
