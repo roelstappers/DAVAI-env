@@ -16,5 +16,5 @@ A *Job* is understood as a series of one or several tasks, executed sequentially
 
 The jobs templates are stored in the `tasks/` directory, and are defined as a function `setup` that return a `Driver` object, which itself contains a series of `Task`(s) and `Family`(ies).
 
-In DAVAÏ, the idea is to have the tasks in independant jobs as far as possible, except: for flow-dependent tasks, or for loops on clones of a task with a varying parameter.
+In DAVAÏ, the idea is to have the tasks in independent jobs as far as possible, except: for flow-dependent tasks, or for loops on clones of a task with a varying parameter.
 

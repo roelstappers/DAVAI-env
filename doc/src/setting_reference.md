@@ -1,4 +1,4 @@
-### Setting up a reference version of the tests and an associated reference experiment
+### [Setting up a reference version](@id set_ref_version) 
 
 ! WORK IN PROGRESS\...
 

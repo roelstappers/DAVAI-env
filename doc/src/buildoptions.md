@@ -51,7 +51,7 @@ In the `[pack2bin]` section:
     `-O0 -check bounds`):\
     $\hookrightarrow$ set `Ofrt = 2`
 
--   to use more/less threads for compilating (independant) sources files
+-   to use more/less threads for compilating (independent) sources files
     in parallel:\
     $\hookrightarrow$ use `threads`
 

@@ -34,7 +34,7 @@ by deactivating them[^1] :
     reduced to the only required ones (note that if only one item
     remains, one needs to keep a final `","` within the parenthesis).
 
--   **dependancy:** open driver file corresponding to the job name in
+-   **dependency:** open driver file corresponding to the job name in
     `tasks/` directory, and comment out (`#`) the unrequired tasks or
     families of *`nodes`*, leaving only the required task.
 

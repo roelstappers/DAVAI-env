@@ -23,7 +23,7 @@
     expertise is displayed:
 
     -   the *`itself`* tab will show info from each Expert about the
-        task independantly from reference
+        task independently from reference
 
     -   the *`continuity`* tab will show the compared results from each
         Expert against the same task from *reference* experiment

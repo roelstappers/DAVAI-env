@@ -23,11 +23,14 @@ pages = [
         "Parallel profiling" => "parallelprofiling.md",
         "Expert thresholds" => "expertthresholds.md"
     ],
+    "Developer documentation" => [
+         "Exercises" => "exercise4developers.md"
+    ],
     "Appendix" => [
          "Versioning tests" => "versioningtest.md", 
          "Continuous integration" => "continuousintegration.md",
          "Setting reference exp" => "setting_reference.md",
-         "Internal organziation" => "internalorganization.md"
+         "Internal organization" => "internalorganization.md"
     ],
     "HPC Platforms" => [
        "Belenos" => "belenos.md",
