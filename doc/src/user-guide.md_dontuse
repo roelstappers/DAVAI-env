@@ -1,133 +1,88 @@
-\documentclass[a4paper,10pt,twoside]{article}
-
-\usepackage[utf8]{inputenc}
-\usepackage{enumitem}
-\usepackage{moreenum}
-\usepackage{graphicx}
-\usepackage{fancyref}
-\usepackage{multirow}
-\usepackage{hyperref}
-\usepackage[normalem]{ulem}
-\usepackage[title]{appendix}
-\usepackage{listings}
-
-\textheight25.0cm
-\textwidth16cm
-\topmargin-.5cm
-\oddsidemargin 0.cm
-\evensidemargin 0.cm
-\headheight0.5cm
-\headsep0.cm
-\footskip0.7cm
-%\footheight2.5cm
-\marginparwidth1.2cm
-\marginparsep0.3cm
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END of HEADER
-
-\title{DAVAÏ User Guide}
-\author{A. Mary}
-\date{DAVAI-env \textit{v-\input{../../VERSION}}\\\today}
-
-\pdfinfo{%
-  /Title    (Ugr)
-  %/Author   (A. mary)
-  /Creator  ()
-  /Producer ()
-  /Subject  ()
-  /Keywords ()
-}
-
-\begin{document}
-\maketitle
-
-\tableofcontents
-\vspace{1cm}
-\newpage
-
+# DAVAÏ User Guide
+A. Mary
 
 DAVAÏ embeds the whole workflow from the source code to the green/red light validation status: fetching sources from Git, building executables, running test cases, analysing the results and displaying them on a dashboard.
 
-For now, the only build system embedded is \texttt{gmkpack}, but we expect other systems to be plugged when required. The second limitation of this version is that the starting point is still an IAL\footnote{IAL = \textbf{I}FS-\textbf{A}rpege-\textbf{L}AM} Git reference only. The next version of the DAVAÏ system will include multi-projects/repositories fetching, using the \textit{\texttt{bundle}} concept as starting point.
+For now, the only build system embedded is `gmkpack`, but we expect other systems to be plugged when required. The second limitation of this version is that the starting point is still an IALi (IAL = IFS-Arpege-LAM) Git reference only. The next version of the DAVAÏ system will include multi-projects/repositories fetching, using the bundle concept as starting point.
 
-The dimensioning of tests (grid sizes, number of observations, parallelization...) is done in order to conceal representativity and execution speed. Therefore, in the general usecases, the tests are supposed to run on HPC. A dedicated usecase will target smaller configurations to run on workstation (not available yet).\\
+The dimensioning of tests (grid sizes, number of observations, parallelization...) is done in order to conceal representativity and execution speed. Therefore, in the general usecases, the tests are supposed to run on HPC. A dedicated usecase will target smaller configurations to run on workstation (not available yet).
 
 An accessible source code forge is set within the ACCORD consortium to host the IAL central repository on which updates and releases are published, and where integration requests will be posted, reviewed and monitored.
-\begin{center}
- \rule{8cm}{1pt}
-\end{center}
 
-By the way: DAVAI stands for \textit{``\textbf{D}evice \textbf{A}iming at the \textbf{VA}lidation of \textbf{I}AL''}
+By the way: DAVAI stands for Device Aiming at the VAlidation of IAL
 
-\newpage
-\section{TUTORIAL: Test an IAL development} 
-\subsection{Create your branch, containing your modifications}
-To use DAVAÏ to test your contribution to the next development release, you need to have your code in a Git branch starting from the latest official release (e.g. \texttt{CY48T1} tag for contributions to 48T2, or \texttt{CY49} tag for contributions to 49T1).
+# Tutorial 
+## Test an IAL development
 
-\noindent In the following the example is taken on a contribution to 48T2:
-\begin{enumerate}[label=(\greek*)]
- \item In your repository (e.g. \texttt{$\sim$/repositories/arpifs} -- make sure it is clean with \texttt{git status} beforehand), create your branch:\\
- \texttt{git checkout -b \textit{<my\_branch>} [\textit{<starting\_reference>}]}\\
- (e.g. \texttt{git checkout -b mary\_CY48T1\_cleaning CY48T1})\\
- \underline{Note:} it is strongly recommended to have explicit branch names with regards to their origin and their owner, hence the legacy branch naming syntax \texttt{<user>\_<CYCLE>\_<purpose\_of\_the\_branch>}
- \item Implement your developments in the branch.\\
- \textit{It is recommended to find a compromise between a whole development in only one commit, and a large number of very small commits (e.g. one by changed file).} In case you then face compilation or runtime issues then, but only if you haven't pushed it yet, you can \textit{amend}\footnote{\texttt{git commit --amend}} the latest commit to avoid a whole series of commits just for debugging purpose.\\
- \underline{Note:} DAVAÏ is currently able to include non-committed changes in the compilation and testing. However, in the next version based on \textit{bundle}, this might not be possible anymore.
-\end{enumerate}
+### Create your branch, containing your modifications
+To use DAVAÏ to test your contribution to the next development release, you need to have your code in a Git branch starting from the latest official release (e.g. `CY48T1` tag for contributions to `48T2`, or `CY49` tag for contributions to `49T1`).
 
+In the following the example is taken on a contribution to `48T2`:
+* In your repository (e.g. `~/repositories/arpifs` -- make sure it is clean with `git status`  beforehand, create your branch:
+  ```
+  git checkout -b <my_branch> [<starting_reference>]
+  ```
+  e.g. `git checkout -b mary_CY48T1_cleaning CY48T1`
 
-\subsection{Run tests} 
-\subsubsection{Setup your experiment}
-\begin{enumerate}[label=(\alph*)]
- \item Create your experiment, specifying which version of the tests you want to use:
+  !!! note
+      it is strongly recommended to have explicit branch names with regards to their origin and their owner, hence the legacy branch naming syntax `<user>_<CYCLE>_<purpose_of_the_branch>`
+* Implement your developments in the branch.
+ It is recommended to find a compromise between a whole development in only one commit, and a large number of very small commits (e.g. one by changed file).} In case you then face compilation or runtime issues then, but only if you haven't pushed it yet, you can amend (`git commit --amend`) the latest commit to avoid a whole series of commits just for debugging purpose.
  
- \texttt{davai-new\_xp \textit{<my\_branch>} -v \textit{<tests\_version>}}
- 
- (e.g. \texttt{davai-new\_xp mary\_CY48T1\_cleaning -v DV48T1})\\
- $\hookrightarrow$ An experiment with a unique experiment ID is created and prompted as output of the command, together with its path. 
- \begin{itemize}
-  \item to know what is the version to be used for a given development:\\
-  \href{https://github.com/ACCORD-NWP/DAVAI-tests/wiki}{https://github.com/ACCORD-NWP/DAVAI-tests/wiki}
-  \item see \texttt{davai-new\_xp -h} for more options on this command
-  \item see Appendix~\ref{sect:tests_versioning} for a more comprehensive approach to tests versioning.
- 
-  \item if the version you are requesting is not known, you may need to specify the DAVAI-tests origin repository from which to clone/fetch it, using argument \texttt{--origin <URL of the remote DAVAI-tests.git>}
- \end{itemize}
- \item $\hookrightarrow$ Go to the (prompted) experiment directory.\\
- \\
- If you want to set some options differently from the default, open file \texttt{conf/davai\_nrv.ini} and tune the parameters in the \texttt{[DEFAULT]} section. The usual tunable parameters are detailed in Section~\ref{sect:options}.
- \item Launch the build and tests:
- 
- \texttt{davai-run\_xp}
- 
- After initializing the Ciboulaï page for the experiment, the command will first run the build of the branch and wait for the executables (that step may take a while, depending on the scope of your modifications, especially with several compilation flavours). Once build completed, it will then launch the tests (through scheduler on HPC).
-\end{enumerate}
+ !!! note
+     DAVAÏ is currently able to include non-committed changes in the compilation and testing. However, in the next version based on bundle, this might not be possible anymore.
 
 
-\subsubsection{Monitor and inspect results}
-\begin{enumerate}[resume,label=(\alph*)]
- \item Monitor the execution of the jobs with the scheduler (with SLURM: \texttt{squeue -u \textit{<user>}})
- \item Check the tests results summary on the \textit{Ciboulaï} dashboard, which URL is prompted at the end of tests launch, or visible in the config file:
- \begin{itemize}
-  \item open \textit{Ciboulaï} dashboard in a web browser: (\href{https://www.umr-cnrm.fr/davai/}{https://www.umr-cnrm.fr/davai/})
-  \begin{itemize}
-   \item[$\Rightarrow$] To guide you in the navigation in \textit{Ciboulaï}, cf. Section~\ref{sect:ciboulai_navigation}.
-   \item[$\Rightarrow$] To get the paths to a job output or abort directory: button \texttt{[+]} then \textit{\textbf{Context}}.
-  \end{itemize}
-  \item if the dashboard is not accessible, a command-line version of the status is possible; in the XP directory, run:
+
+## Run tests 
+### Setup your experiment
+
+* Create your experiment, specifying which version of the tests you want to use:
+ 
+  ```bash 
+  davai-new_xp <my_branch> -v tests_version>
+  ```
+ 
+  e.g. `davai-new_xp mary_CY48T1_cleaning -v DV48T1`. An experiment with a unique experiment ID is created and prompted as output of the command, together with its path. 
+  * to know what is the version to be used for a given development: see [wiki]}(https://github.com/ACCORD-NWP/DAVAI-tests/wiki)
+  * see `davai-new_xp -h` for more options on this command
+  * see Appendix [tests_versioning](@ref id)  for a more comprehensive approach to tests versioning.
+  * if the version you are requesting is not known, you may need to specify the DAVAI-tests origin repository from which to clone/fetch it, using argument `--origin <URL of the remote DAVAI-tests.git>`
+* Go to the (prompted) experiment directory.
+ 
+  If you want to set some options differently from the default, open file `conf/davai\_nrv.ini` and tune the parameters in the `[DEFAULT]` section. The usual tunable parameters are detailed in [sect:options](@ref) .
+* Launch the build and tests:
+ 
+  ```
+  davai-run_xp
+  ```
+ 
+  After initializing the Ciboulaï page for the experiment, the command will first run the build of the branch and wait for the executables (that step may take a while, depending on the scope of your modifications, especially with several compilation flavours). Once build completed, it will then launch the tests (through scheduler on HPC).
+
+
+### Monitor and inspect results
+
+* Monitor the execution of the jobs with the scheduler (with SLURM: `squeue -u <user>`)
+* Check the tests results summary on the \textit{Ciboulaï} dashboard, which URL is prompted at the end of tests launch, or visible in the config file:
+  * open \textit{Ciboulaï} dashboard in a web browser: [https://www.umr-cnrm.fr/davai/](https://www.umr-cnrm.fr/davai/)
+  * To guide you in the navigation in Ciboulaï, cf. Section [sect:ciboulai_navigation](@ref id).
+  * To get the paths to a job output or abort directory: button `[+]` then `Context`.
+* if the dashboard is not accessible, a command-line version of the status is possible; in the XP directory, run:
   
-  \texttt{davai-xp\_status}
+  ```
+  davai-xp_status
+  ```
   
   to see the status summary of each job.
-  The detailed status and expertise of tests are also available as json files on the Vortex cache:\\
- \texttt{belenos:/scratch/mtool/<user>/cache/vortex/davai/<vconf>/<xpid>/summaries\_stack/}\\
+  The detailed status and expertise of tests are also available as json files on the Vortex cache:
+  `belenos:/scratch/mtool/<user>/cache/vortex/davai/<vconf>/<xpid>/summaries\_stack/`
  or
  
- \texttt{davai-xp\_status -t <task>}
+ ```
+ davai-xp_status -t <task>
+ ```
  
- $\Rightarrow$ To get the paths to a job output or abort directory: \texttt{davai-xp\_status -t <task>} then open the \texttt{itself} file and look in the \textit{\textbf{Context}} section.
- \end{itemize}
-\end{enumerate}
+ * To get the paths to a job output or abort directory: `davai-xp_status -t <task>` then open the `itself` file and look in the `Context` section.
 
 \subsubsection*{And then ?}
 \begin{itemize}
@@ -205,7 +160,7 @@ To use DAVAÏ to test your contribution to the next development release, you nee
 \subsubsection{Organisation of an experiment}
 The \texttt{davai-new\_xp} command-line prepares a ``testing experiment'' directory, named uniquely after an incremental number, the platform and the user.
 
-\noindent This testing experiment will consist in:
+ This testing experiment will consist in:
 \begin{itemize}
  \item \texttt{conf/davai\_nrv.ini} : config file, containing parameters such as the git reference to test, davai options, historisations of input resources to use, tunings of tests (e.g. the input obs files to take into account) and profiles of jobs
  \item \texttt{conf/<USECASE>.yaml} : contains an ordered and categorised list of jobs to be ran in the requested usecase.
@@ -235,7 +190,7 @@ Therefore for each job, one will find :
  \item an \textit{\textbf{abort}} directory, in which to find the exact copy of the execution directory when the execution failed
 \end{itemize}
 
-\noindent These directories are registered by the DAVAÏ expertise and are displayed in the \textit{\textbf{Context}} item of the expertise for each task in \textit{Ciboulaï}.
+ These directories are registered by the DAVAÏ expertise and are displayed in the \textit{\textbf{Context}} item of the expertise for each task in \textit{Ciboulaï}.
  
 
 
@@ -271,7 +226,7 @@ The tasks in the \texttt{build} job are respectively in charge of:
  \item \texttt{\textit{pack2bin}} : compile sources and link necessary executables (i.e. those used in the tests), for each pack flavour.
 \end{itemize}
 
-\noindent In case the compilation fails, or if you need to (re-)modify the sources for any reason (e.g. fix an issue):
+ In case the compilation fails, or if you need to (re-)modify the sources for any reason (e.g. fix an issue):
 \begin{enumerate}[label=\arabic*.]
   \item implement corrections in the branch (commited or not)
   \item re-run the build:\\
@@ -319,14 +274,14 @@ The \textit{\textbf{usecase}} parameter of an experiment (to be set in the \text
 
 To investigate a non-reproducibility or crash issue, the \texttt{ELP} usecase of Davaï can help localizing its context, with a set of more elementary tests, that run smaller parts of code.
 
-\noindent To switch to this mode:
+ To switch to this mode:
 \begin{itemize}
  \item create a new experiment with the same arguments but \texttt{-u ELP} and go in it
  \item for a faster build (no re-compilation), edit config file \texttt{conf/davai\_elp.ini} and in section \texttt{[gitref2pack]}, set \texttt{cleanpack = False}
  \item \texttt{davai-run\_xp}
 \end{itemize}
 
-\noindent Instead of 50$^+$ tests, the ELP mode will provide hundreds of more elementary and focused tests. For instance, if you had a problem in the 4DVar minimization, you can run the 3 observation operators tests, observation by observation, and/or a screening, and/or a 3DVar or 4DVar single-obs minimization, in order to understand if the problem is in a specific observation operator (which obs type ?), in its direct, TL or AD version, or in the Variational algorithm, or in the preceding screening, and so on...
+ Instead of 50$^+$ tests, the ELP mode will provide hundreds of more elementary and focused tests. For instance, if you had a problem in the 4DVar minimization, you can run the 3 observation operators tests, observation by observation, and/or a screening, and/or a 3DVar or 4DVar single-obs minimization, in order to understand if the problem is in a specific observation operator (which obs type ?), in its direct, TL or AD version, or in the Variational algorithm, or in the preceding screening, and so on...
 
 The user may want, at some point, to run only a subset of this very large set of tests. In this case, simply open the \texttt{conf/ELP.yaml} and comment (\texttt{\#}) the launch of the various jobs.
 To reduce the number of tests that are innerly looped, e.g. the loop on observation types within the \texttt{*\_\_obstype} jobs: open config file \texttt{conf/davai\_elp.ini}, look for the section named after job name and select the obstype(s) to be kept only in list.
@@ -355,9 +310,8 @@ In the \texttt{[pack2bin]} section:
 \begin{itemize}
  \item to make the \texttt{\textit{pack2bin}} task crash more quickly after a compilation/link error, or do not crash at all\\
  $\hookrightarrow$ set \texttt{fatal\_build\_failure =}
- \begin{itemize}[label=$*$]
-  \item \texttt{\_\_finally\_\_} $\Rightarrow$ crash after trying to compile and build all executables
-  \item \texttt{\_\_any\_\_} $\Rightarrow$ crash if compilation fails or right after the first executable linking to fail
+ * __finally__  crash after trying to compile and build all executables
+*  \item \texttt{\_\_any\_\_} $\Rightarrow$ crash if compilation fails or right after the first executable linking to fail
   \item \texttt{\_\_none\_\_} $\Rightarrow$ never == ignore failed builds
  \end{itemize}
  \item to re-generate \texttt{ics\_*} files before building\\
@@ -369,7 +323,7 @@ In the \texttt{[pack2bin]} section:
  \item to change the list of executables to be built, by default or depending on the compilation flavour:\\
  $\hookrightarrow$ use \texttt{default\_programs} and \texttt{programs\_by\_flavour}
 \end{itemize}
-\noindent Also, any \texttt{gmkpack} native variables can be set in the \texttt{.bash\_profile}, e.g. \texttt{ROOTPACK, HOMEPACK}, etc... Some might be overwritten by the config, e.g. if you set \texttt{rootpack} in config file.
+ Also, any \texttt{gmkpack} native variables can be set in the \texttt{.bash\_profile}, e.g. \texttt{ROOTPACK, HOMEPACK}, etc... Some might be overwritten by the config, e.g. if you set \texttt{rootpack} in config file.
 
 \subsubsection{Build with [cmake/makeup/ecbuild...]}
 Not implemented yet.
@@ -493,7 +447,7 @@ Suppose then that we have 5 of these contribution branches based on \texttt{CY49
 \end{tabular}
 \end{center}
 
-\noindent In parallel to the integration branch \texttt{dev\_CY49\_toT1}, we start a tests branch from \texttt{DV49} to collect the necessary adaptations of the tests, similarly named \texttt{dev\_DV49\_toT1}, which will be used to validate the integration branch, and updated as required along the integration.
+ In parallel to the integration branch \texttt{dev\_CY49\_toT1}, we start a tests branch from \texttt{DV49} to collect the necessary adaptations of the tests, similarly named \texttt{dev\_DV49\_toT1}, which will be used to validate the integration branch, and updated as required along the integration.
 
 In case some intermediate versions of the integration branch are tagged and some branches are based/rebased on these tagged versions, we could also tag accordingly the tests branch if necessary.\\
 
@@ -587,7 +541,7 @@ For the example, let's consider \texttt{CY49} and setting up a \texttt{DV49} ver
  \end{verbatim}
 \end{enumerate}
 
-\noindent This way the tests experiment generated using \texttt{davai-new\_xp -v DV49} will use this version and be compared to this reference experiment.
+ This way the tests experiment generated using ``davai-new_xp -v DV49` will use this version and be compared to this reference experiment.
 
 
 
@@ -596,8 +550,7 @@ For the example, let's consider \texttt{CY49} and setting up a \texttt{DV49} ver
 
 
 
-\newpage
-\section{Internal organization of DAVAÏ}
+## Internal organization of DAVAÏ
 
 \begin{figure}[h!]\hspace{-2cm}
  \begin{center}\hspace{-2cm}
