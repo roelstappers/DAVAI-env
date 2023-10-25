@@ -24,6 +24,7 @@ pages = [
         "Expert thresholds" => "expertthresholds.md"
     ],
     "Developer documentation" => [
+         "uget" => "uget/uget.md",
          "Exercises" => "exercise4developers.md"
     ],
     "Appendix" => [
