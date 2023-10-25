@@ -22,35 +22,35 @@ The following example shows how to modify components of an Arome-France
 
 ### Before first use
 
--   load Genv/Gget (in your *profile*, if not already done):
+- load Genv/Gget (in your *profile*, if not already done):
 
-    ```bash}
-    export PATH=/home/mf/dp/marp/gco/public/bin:$PATH
-    ```
+  ```bash
+  export PATH=/home/mf/dp/marp/gco/public/bin:$PATH
+  ```
 
--   load Vortex (in your *profile*, if not already done):
+- load Vortex (in your *profile*, if not already done):
 
-    ```bash
-    module load python
-    VORTEX_INSTALL_DIR=/home/mf/dp/marp/verolive/vortex/vortex
-    PYTHONPATH=$VORTEX_INSTALL_DIR/src:$PYTHONPATH
-    PYTHONPATH=$VORTEX_INSTALL_DIR/site:$PYTHONPATH
-    PYTHONPATH=$VORTEX_INSTALL_DIR/project:$PYTHONPATH
-    export PYTHONPATH
-    export PATH=$VORTEX_INSTALL_DIR/bin:$PATH
-    ```
+  ```bash
+  module load python
+  VORTEX_INSTALL_DIR=/home/mf/dp/marp/verolive/vortex/vortex
+  PYTHONPATH=$VORTEX_INSTALL_DIR/src:$PYTHONPATH
+  PYTHONPATH=$VORTEX_INSTALL_DIR/site:$PYTHONPATH
+  PYTHONPATH=$VORTEX_INSTALL_DIR/project:$PYTHONPATH
+  export PYTHONPATH
+  export PATH=$VORTEX_INSTALL_DIR/bin:$PATH
+  ```
 
--   initialisation of directories:
+- initialisation of directories:
 
-    ```bash
-    uget.py bootstrap_hack [user]
-    ```
+  ```bash
+  uget.py bootstrap_hack [user]
+  ```
 
-    Ex:
+  !!! tip "Example"
 
-    ```bash
-    uget.py bootstrap_hack mary
-    ```
+      ```bash
+      uget.py bootstrap_hack mary
+      ```
 
 ### Clone an existing env (catalog) {#uget-clone-existant-en}
 
@@ -60,13 +60,13 @@ Syntax:
 uget.py hack genv [cycle_source] into [cycle_cible]@[user]
 ```
 
-Ex:
+!!! tip "Example"
 
-```bash
-uget.py hack genv al42_arome-op2.30 into al42_arome-dble.02@mary
-```
+    ```bash
+    uget.py hack genv al42_arome-op2.30 into al42_arome-dble.02@mary
+    ```
 
-This \"hack\" command creates a copy of the genv catalog
+This "hack" command creates a copy of the genv catalog
 (`genv al42_arome-op2.30`), under:
 `$HOME/.vortexrc/hack/uget/mary/env/al42_arome-dble.02`.
 
@@ -85,34 +85,30 @@ user-owned env named `blabla` hosted at `someone`.
 ### Modification of the cloned env
 
 For each element in the cloned catalog (obtained at step
-`uget-clone-existant-en`{.interpreted-text role="ref"}), we can modify
+`uget-clone-existant-en`, we can modify
 the the resource (i.e. to the right of the `=`), by pointing at an
-element in the \"GCO official store\", or at a colleague\'s or one of
-your own\'s (under `$HOME/.vortexrc/hack/uget/$USER/data/`).
+element in the "GCO official store", or at a colleague's or one of
+your own's (under `$HOME/.vortexrc/hack/uget/$USER/data/`).
 
-We can mix such elements of a *uenv*\...
+We can mix such elements of a *uenv*
 
-Ex:
+!!! tip "Example" 
 
-:   | I am user `mary`, the element:
-    |    `CLIM_FRANMG_01KM30=clim_franmg.01km30.03` (at GCO)
-    | can be replaced by :
-    |    `CLIM_FRANMG_01KM30=uget:mes_clims@mary` (`uget:` to identify
-      it is an element managed by *uget* and `@mary` because the element
-      is in my store)
-    | or:
-    |    `CLIM_FRANMG_01KM30=uget:mes_clims.04@faure` (`@faure` because
-      it is an element stored at user `faure`)
+    I am user `mary`, the element:  `CLIM_FRANMG_01KM30=clim_franmg.01km30.03` (at GCO)
+    can be replaced by : `CLIM_FRANMG_01KM30=uget:mes_clims@mary` (`uget:` to identify
+    it is an element managed by *uget* and `@mary` because the element is in my store)
+    or: `CLIM_FRANMG_01KM30=uget:mes_clims.04@faure` (`@faure` because it is an element stored at user `faure`)
 
 Beware a little difference with `genv` for namelists packages: these
 packages being stored as tar/tgz, you need to specify explicitly in the
 uenv.
 
-Ex (note the extension `.tgz`):
+!!! tip "Example" 
+    note the extension `.tgz`:
 
-```bash
-NAMELIST_AROME=uget:my_namelist_package.tgz@mary
-```
+    ```bash
+    NAMELIST_AROME=uget:my_namelist_package.tgz@mary
+    ```
 
 However, *uget* will be able to get either the directory
 `$HOME/.vortexrc/hack/uget/mary/data/my_namelist_package` soit le tgz
@@ -130,17 +126,17 @@ uget:
 uget.py hack gdata [element] into [clone_element]@[user]
 ```
 
-Ex:
+!!! tip "Example"
 
-```bash
-uget.py hack gdata al42_arome-op2.15.nam into al42_arome-op2.16.nam.tgz@mary
-```
+    ```bash
+    uget.py hack gdata al42_arome-op2.15.nam into al42_arome-op2.16.nam.tgz@mary
+    ```
 
-or:
+    or:
 
-```bash
-uget.py hack data al42_arome-dble.01.nam.tgz@faure into al42_arome-op2.16.nam.tgz@mary
-```
+    ```bash
+    uget.py hack data al42_arome-dble.01.nam.tgz@faure into al42_arome-op2.16.nam.tgz@mary
+    ```
 
 The convention used here by *uget* is consistent with the one used
 before: `gdata blabla` stands for a GCO element named `blabla` when
@@ -185,11 +181,11 @@ In this case:
 uget.py push data [element]@[user]}
 ```
 
-Ex:
+!!! tip "Example" 
 
-```bash
-uget.py push data al42_arome-op2.16.nam.tgz@mary
-```
+    ```bash
+    uget.py push data al42_arome-op2.16.nam.tgz@mary
+    ```
 
 ### Explore
 
@@ -254,24 +250,24 @@ uget.py export env al42_arome-dble.02@mary [wrt genv al42_arome-op2.30]
 Remarks and good habits
 -----------------------
 
--   clim files (and other monthly resources) are expanded: the key
-    `CLIM_BLABLA=uget:my_clims@mary` aim at all files syntaxed
-    `my_clims.m??` located in the directory `data` ;
--   even if it is technically feasable, it is strongly advised to forbid
-    yourself to modify an element once pushed. With the cache system,
-    you may face weird fetches in experiments\...
--   as a corollary, it is a good habit to number each uenv and each
-    resource, and increment them push after push
--   on hendrix, the *uenv* and resources are archived under an archived
-    and spread tree of directories. This is both for performance matters
-    and an incitation to use `uget.py` to get these resources
-    systematically
--   before an element is pushed (uenv and resources), it is not
-    accessible via `uget.py` nor a vortex experiment for other users,
-    only for the owner.
--   if large resources are to be pushed, one can advantageously log on a
-    transfer node before the push
--   comments are accepted in a *uenv*, starting with `#`.
+- clim files (and other monthly resources) are expanded: the key
+  `CLIM_BLABLA=uget:my_clims@mary` aim at all files syntaxed
+  `my_clims.m??` located in the directory `data` ;
+- even if it is technically feasable, it is strongly advised to forbid
+  yourself to modify an element once pushed. With the cache system,
+  you may face weird fetches in experiments...
+- as a corollary, it is a good habit to number each uenv and each
+  resource, and increment them push after push
+- on hendrix, the *uenv* and resources are archived under an archived
+  and spread tree of directories. This is both for performance matters
+  and an incitation to use `uget.py` to get these resources
+  systematically
+- before an element is pushed (uenv and resources), it is not
+  accessible via `uget.py` nor a vortex experiment for other users,
+  only for the owner.
+- if large resources are to be pushed, one can advantageously log on a
+  transfer node before the push
+- comments are accepted in a *uenv*, starting with `#`.
 
 More advanced functionalities
 -----------------------------
