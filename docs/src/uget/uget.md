@@ -354,13 +354,12 @@ $
 
 This mode can be interesting:
 
-> -   For systems on which loading Vortex is slow, you will load it once
->     only in the beginning instead of at each command.
-> -   There is auto-completion (`Tab`).
-> -   Within one session, you can navigate through commands history.
+- For systems on which loading Vortex is slow, you will load it once
+  only in the beginning instead of at each command.
+- There is auto-completion (`Tab`).
+- Within one session, you can navigate through commands history.
 
-Cheatsheet
-----------
+## Cheatsheet
 
 ### Environnement
 
