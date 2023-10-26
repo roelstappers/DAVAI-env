@@ -33,7 +33,7 @@ Pre-requirements (if not already set up)
    export GMK_OPT=x
    # update paths
    export PATH=$GMKROOT/util:$PATH
-   export MANPATH=$MANPATH:$GMKROOT/mani
+   export MANPATH=$MANPATH:$GMKROOT/man
    ```
 
 2. Ensure permissions to `accord` group (e.g. with `chgrp`) for support, something like:

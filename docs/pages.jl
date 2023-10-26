@@ -1,42 +1,40 @@
 pages = [
     "Home" => "index.md", 
     "Getting Started" => [ 
-        "Creating a branch" => "create_branch.md",
-        "Running tests" => "runtests.md",
-        "Monitoring results" => "ciboulai.md",
-        "Ciboulaï navigation" => "ciboulai_navigation.md"
+        "Creating a branch" => "gettingstarted/create_branch.md",
+        "Running tests" => "gettingstarted/runtests.md",
+        "Monitoring results" => "gettingstarted/ciboulai.md",
+        "Ciboulaï navigation" => "gettingstarted/ciboulai_navigation.md",
+        "Belenos" => "gettingstarted/belenos.md",
+        "Atos" => "gettingstarted/atos_bologna.md"
     ],
     "More info" => [ 
-        "Organization of experiment" => "organization.md",
-        "Jobs & Tasks" => "jobs_tasks.md",
-        "MTOOL" => "mtool.md",
-        "First tips" => "tips.md"
+        "Organization of experiment" => "more_info/organization.md",
+        "Jobs & Tasks" => "more_info/jobs_tasks.md",
+        "MTOOL" => "more_info/mtool.md",
+        "First tips" => "more_info/tips.md"
     ],
     "Advanced topics" => [
-        "Build" => "build.md",
-        "Rerun tests" => "rerun.md",
-        "Investigate Problems" => "investigatingproblems.md",
-        "Build options" => "buildoptions.md",
-        "Input data" => "inputdata.md",
-        "Other options" => "otheroptions.md",
-        "User configuration" =>  "userconfiguration.md",
-        "Parallel profiling" => "parallelprofiling.md",
-        "Expert thresholds" => "expertthresholds.md"
+        "Build" => "advancedtopics/build.md",
+        "Rerun tests" => "advancedtopics/rerun.md",
+        "Investigate Problems" => "advancedtopics/investigatingproblems.md",
+        "Build options" => "advancedtopics/buildoptions.md",
+        "Input data" => "advancedtopics/inputdata.md",
+        "Other options" => "advancedtopics/otheroptions.md",
+        "User configuration" =>  "advancedtopics/userconfiguration.md",
+        "Parallel profiling" => "advancedtopics/parallelprofiling.md",
+        "Expert thresholds" => "advancedtopics/expertthresholds.md"
     ],
     "Developer documentation" => [
-         "uget" => "uget/uget.md",
-         "Exercises" => "exercise4developers.md"
+         "uget" => "developer_documentation/uget.md",
+         "Exercises" => "developer_documentation/exercise4developers.md"
     ],
     "Appendix" => [
-         "Versioning tests" => "versioningtest.md", 
-         "Continuous integration" => "continuousintegration.md",
-         "Setting reference exp" => "setting_reference.md",
-         "Internal organization" => "internalorganization.md"
-    ],
-    "HPC Platforms" => [
-       "Belenos" => "belenos.md",
-       "Atos" => "atos_bologna.md"
-    ],
+         "Versioning tests" => "appendix/versioningtest.md", 
+         "Continuous integration" => "appendix/continuousintegration.md",
+         "Setting reference exp" => "appendix/setting_reference.md",
+         "Internal organization" => "appendix/internalorganization.md"
+    ]
 ]
 
 

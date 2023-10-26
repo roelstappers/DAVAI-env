@@ -27,7 +27,7 @@ particular for contributions to the IAL codes, it is proposed to adopt a
 nomenclature that maps the IAL releases and integration/merge branches,
 but replacing `"CY"` by `"DV"` (for DAVAÏ), as illustrated 
 
-![](assets/tests_versioning.png)
+![](../assets/tests_versioning.png)
 
 With this principle, the version of the tests to be used *by default* would be, for example:
 
